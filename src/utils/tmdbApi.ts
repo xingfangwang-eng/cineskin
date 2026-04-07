@@ -27,6 +27,11 @@ interface TMDBResponse {
 // Function to search for movies by term
 export async function searchMovies(term: string): Promise<Movie[]> {
   try {
+    // Skip TMDB API calls during production builds to avoid timeouts
+    if (process.env.NODE_ENV === 'production') {
+      return [];
+    }
+    
     const response = await fetch(
       `${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(term)}&page=1`
     );
@@ -105,6 +110,11 @@ export function getCssFilter(keyword: string): string {
 // Get movie credits to find director
 async function getMovieCredits(movieId: number): Promise<string> {
   try {
+    // Skip TMDB API calls during production builds to avoid timeouts
+    if (process.env.NODE_ENV === 'production') {
+      return 'Unknown';
+    }
+    
     const response = await fetch(
       `${TMDB_BASE_URL}/movie/${movieId}/credits?api_key=${TMDB_API_KEY}&language=en-US`
     );

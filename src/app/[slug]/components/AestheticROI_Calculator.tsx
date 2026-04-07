@@ -60,7 +60,7 @@ const AestheticROI_Calculator: React.FC<AestheticROI_CalculatorProps> = ({ keywo
               min="0"
               value={followers}
               onChange={(e) => setFollowers(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900"
             />
           </div>
           
@@ -77,7 +77,7 @@ const AestheticROI_Calculator: React.FC<AestheticROI_CalculatorProps> = ({ keywo
               step="0.5"
               value={hoursPerDay}
               onChange={(e) => setHoursPerDay(Number(e.target.value))}
-              className="w-full px-4 py-3 border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-900"
             />
           </div>
           

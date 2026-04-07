@@ -13,6 +13,7 @@ import { generateComments, generateRatings, generateRelatedKeywords } from '@/ut
 import PricingHeroTable from './components/PricingHeroTable';
 import ClientCalculatorWrapper from './components/ClientCalculatorWrapper';
 import PlatformSpecTable from './components/PlatformSpecTable';
+import BannerGeneratorButton from './components/BannerGeneratorButton';
 import Breadcrumb from '@/components/Breadcrumb';
 
 interface Props {
@@ -344,10 +345,7 @@ const Page: React.FC<Props> = async ({ params }) => {
                       defaultValue={`${tmdb_search_term}\nInception\nThe Matrix\nInterstellar`}
                     />
                   </div>
-                  <button className="w-full px-6 py-3 rounded-md font-medium transition-colors active:scale-95 flex items-center justify-center gap-2" style={{ backgroundColor: vibe_colors[1], color: '#FFFFFF' }}>
-                    <Zap size={20} />
-                    Generate Banner
-                  </button>
+                  <BannerGeneratorButton backgroundColor={vibe_colors[1]} />
                 </div>
               </div>
             </section>

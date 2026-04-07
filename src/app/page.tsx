@@ -1,19 +1,16 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import PlatformSwitcher from '../components/PlatformSwitcher';
-import PreviewBox from '../components/PreviewBox';
 import LayoutModeSelector from '../components/LayoutModeSelector';
 import GradientSelector from '../components/GradientSelector';
 import GifUploader from '../components/GifUploader';
 import ProTemplateSelector from '../components/ProTemplateSelector';
-import ExportButton from '../components/ExportButton';
 import Auth from '../components/Auth';
 import ProUpgradeModal from '../components/ProUpgradeModal';
-import ShareButton from '../components/ShareButton';
 import { User } from '@supabase/supabase-js';
 
 const Home: React.FC = () => {
@@ -27,10 +24,6 @@ const Home: React.FC = () => {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [featureToUpgrade, setFeatureToUpgrade] = useState('');
   const [removeWatermark, setRemoveWatermark] = useState(false);
-  const [exportedImageUrl, setExportedImageUrl] = useState<string>('');
-  const [showShareButton, setShowShareButton] = useState(false);
-
-  const previewRef = useRef<HTMLDivElement>(null);
 
   const handleUserChange = (user: User | null, isPro: boolean) => {
     setUser(user);
@@ -82,11 +75,6 @@ const Home: React.FC = () => {
     setRemoveWatermark(e.target.checked);
   };
 
-  const handleExportSuccess = (imageUrl: string) => {
-    setExportedImageUrl(imageUrl);
-    setShowShareButton(true);
-  };
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Head>
@@ -123,10 +111,8 @@ const Home: React.FC = () => {
         </section>
 
         {/* Main Content */}
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          {/* Left Side - Controls */}
-          <div className="space-y-8">
-            <PlatformSwitcher onPlatformChange={handlePlatformChange} />
+        <div className="space-y-8">
+          <PlatformSwitcher onPlatformChange={handlePlatformChange} />
             
             <LayoutModeSelector 
               selectedMode={layoutMode} 
@@ -201,32 +187,6 @@ const Home: React.FC = () => {
                 </div>
               )}
             </div>
-            
-            <ExportButton 
-              previewRef={previewRef} 
-              isPro={isPro} 
-              removeWatermark={removeWatermark} 
-              onExportSuccess={handleExportSuccess}
-            />
-            
-            {showShareButton && (
-              <div className="mt-4">
-                <ShareButton platform={selectedPlatform} imageUrl={exportedImageUrl} />
-              </div>
-            )}
-          </div>
-
-          {/* Right Side - Preview */}
-          <div className="sticky top-24" ref={previewRef}>
-            <PreviewBox 
-              platform={selectedPlatform} 
-              layoutMode={layoutMode} 
-              gradient={gradient} 
-              gifFile={gifFile} 
-              isPro={isPro} 
-              template={selectedTemplate} 
-            />
-          </div>
         </div>
       </main>
       

@@ -2,16 +2,26 @@ import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { supabase } from '../../../lib/supabase';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2024-06-20',
-});
+// Only create Stripe client if API key is available
+let stripe: Stripe | null = null;
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+if (stripeSecretKey) {
+  stripe = new Stripe(stripeSecretKey, {
+    apiVersion: '2024-06-20',
+  });
+}
 
 export async function POST(request: NextRequest) {
+  // Check if Stripe is configured
+  if (!stripe) {
+    return NextResponse.json({ error: 'Stripe is not configured' }, { status: 503 });
+  }
+
   const signature = request.headers.get('stripe-signature');
   const body = await request.text();
 
   try {
-    const event = stripe.webhooks.constructEvent(
+    const event = stripe!.webhooks.constructEvent(
       body,
       signature || '',
       process.env.STRIPE_WEBHOOK_SECRET || ''
