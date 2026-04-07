@@ -9,8 +9,8 @@ interface LayoutModeSelectorProps {
 const LayoutModeSelector: React.FC<LayoutModeSelectorProps> = ({ selectedMode, onModeChange, isPro }) => {
   const modes = [
     { id: 'classic', name: 'Classic', description: 'Perfectly aligned grid' },
-    { id: 'mosaic', name: 'Mosaic', description: 'Waterfall-style错位 art' },
-    { id: 'cinematic', name: 'Cinematic', description: '1 large image占据 60% width' },
+    { id: 'mosaic', name: 'Mosaic', description: 'Waterfall-style staggered art' },
+    { id: 'cinematic', name: 'Cinematic', description: '1 large image taking up 60% width' },
   ];
 
   return (
